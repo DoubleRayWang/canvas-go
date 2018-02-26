@@ -1,0 +1,1 @@
+{"version":3,"sources":["clock.scss"],"names":[],"mappings":"AACA;EACE,eAAc;EACd,kBAAiB,EAClB;;AACD;EACE,eAAc;EACd,kBAAiB,EAClB","file":"clock.css","sourcesContent":["\r\n#img{\r\n  display: block;\r\n  margin: 20px auto;\r\n}\r\n#clock{\r\n  display: block;\r\n  margin: 10px auto;\r\n}\r\n.control{\r\n\r\n}"]}

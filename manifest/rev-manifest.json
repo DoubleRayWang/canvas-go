@@ -1,7 +1,11 @@
 {
-  "css/index.css": "css/index.a67c928fbd.cache.css",
-  "css/reset.css": "css/reset.f3bcd8dd2e.cache.css",
-  "index.html": "index.8d939871a0.cache.html",
-  "js/index.js": "js/index.cbc6072dfb.cache.js",
+  "clock.html": "clock.65f828872d.cache.html",
+  "css/clock.css": "css/clock.fa8f639102.cache.css",
+  "css/drawImg.css": "css/drawImg.0591310ccc.cache.css",
+  "css/reset.css": "css/reset.c506e48b49.cache.css",
+  "drawImg.html": "drawImg.e191f8ab98.cache.html",
+  "img/bg.jpg": "img/bg.924c07405f.cache.jpg",
+  "js/clock.js": "js/clock.0a8a4b576d.cache.js",
+  "js/drawImg.js": "js/drawImg.bbbdb6f143.cache.js",
   "lib/js/jquery.min.js": "lib/js/jquery.41175d1d95.cache.min.js"
 }
