@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>SNOW</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<link rel="stylesheet" href="css/reset.css">
+</head>
+<body style="background-color: #000000">
+<canvas id="canvas"></canvas>
+<script>
+    var canvas = document.getElementById('canvas'),
+        ctx = canvas.getContext('2d'),
+        canvasW = 0,
+        canvasH = 0,
+        particles = [],
+        maxParticles = 320,
+        random = function (min, max) {
+            return Math.random() * (max - min) + min
+        },
+        Particle = function () {
+            this.x = Math.random() * canvasW
+            this.y = Math.random() * canvasH
+            this.r = random(1, 4)
+            this.alpha = random(0.4, 1)
+            this.velocity = {
+                x: random(-0.85, 0.85),
+                y: random(0.75, 5.5)
+            }
+            
+            this.draw = function () {
+                ctx.fillStyle = 'rgba(255, 255, 255, ' + this.alpha + ')';
+                // ctx.shadowColor = '#ffffff'
+                // ctx.shadowBlur = 20
+                // ctx.shadowOffsetX = 0
+                // ctx.shadowOffsetY = 0
+                ctx.beginPath()
+                ctx.arc(this.x, this.y, this.r, 0, 2 * Math.PI, false)
+                ctx.closePath()
+                ctx.fill()
+            }
+            
+            this.moving = function () {
+                this.x += this.velocity.x
+                this.y += this.velocity.y
+                
+                if (this.y > canvasH) {
+                    this.x = Math.random() * canvasW
+                    this.y = 0
+                }
+                
+                this.draw()
+            }
+        },
+        init = function () {
+            canvasW = window.innerWidth;
+            canvasH = window.innerHeight;
+            canvas.width = canvasW;
+            canvas.height = canvasH;
+            
+            for (var i = 0; i < maxParticles; i++) {
+                particles.push(new Particle())
+            }
+            
+            animate()
+        },
+        animate = function () {
+            ctx.clearRect(0, 0, canvasW, canvasH)
+            particles.forEach(function (particle) {
+                particle.moving()
+            })
+            requestAnimationFrame(animate)
+        };
+    window.requestAnimationFrame = (function () {
+        var FPS = 60,
+            self = this,
+            start = null,
+            finish = null;
+        return window.requestAnimationFrame ||
+            window.webkitRequestAnimationFrame ||
+            window.mozRequestAnimationFrame ||
+            window.oRequestAnimationFrame ||
+            window.msRequestAnimationFrame ||
+            function (callBack) {
+                window.setTimeout(function () {
+                    start = new Date();
+                    callBack();
+                    finish = new Date();
+                    self.timeout = 1000 / FPS - (finish - start);
+                }, self.timeout)
+            }
+    })();
+    init();
+</script>
+</body>
+</html>
