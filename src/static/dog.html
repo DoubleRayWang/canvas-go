@@ -9,6 +9,47 @@
 </head>
 <body>
 <canvas id="dog" style="position:fixed;left:0;bottom:0"></canvas>
+
+<div class="remove"></div>
 <script src="js/dog.js"></script>
+<script src="lib/js/jquery.min.js"></script>
+
+<script>
+    function remove(selectors) {
+        selectors.removeNode = [];
+        if (selectors.length != undefined) {
+            var len = selectors.length;
+            for (var i = 0; i < len; i++) {
+                selectors.removeNode.push({
+                    parent: selectors[i].parentNode,
+                    inner: selectors[i].outerHTML,
+                    next: selectors[i].nextSibling
+                });
+            }
+            for (var i = 0; i < len; i++)
+                selectors[0].parentNode.removeChild(selectors[0]);
+        }
+        else {
+            selectors.removeNode.push({
+                parent: selectors.parentNode,
+                inner: selectors.outerHTML,
+                next: selectors.nextSibling
+            });
+            selectors.parentNode.removeChild(selectors);
+        }
+    }
+    //封装判断是否碰撞的函数
+    function ElementsCrash(box1,box2){
+        if(box1.getBoundingClientRect().right < box2.getBoundingClientRect().left ||
+            box1.getBoundingClientRect().left > box2.getBoundingClientRect().right ||
+            box1.getBoundingClientRect().bottom < box2.getBoundingClientRect().top ||
+            box1.getBoundingClientRect().top > box2.getBoundingClientRect().bottom
+        ){//没有碰上
+            return false;
+        }else{//碰上了
+            return true;
+        }
+    }
+</script>
 </body>
 </html>
