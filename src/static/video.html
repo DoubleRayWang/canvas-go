@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="author" contect="doubleray, doubleray@CTRCHINA.CN">
+</head>
+<body>
+<div >
+	<video id="video" src="./_mp4.mp4" controls="true" autoplay></video>
+</div>
+<canvas id="c1" width="500" height="281"></canvas>
+<p id="frameCount"></p>
+<script>
+    var video = document.querySelector('#video'),
+        timer = null,
+        c1 = document.querySelector("#c1"),
+        ctx1 = c1.getContext("2d"),
+        width = c1.width,
+        height = c1.height,
+        requestAnimationFrame =
+            window.requestAnimationFrame ||
+            window.mozRequestAnimationFrame ||
+            window.webkitRequestAnimationFrame ||
+            window.msRequestAnimationFrame,
+        cancelAnimationFrame =
+            window.cancelAnimationFrame ||
+            window.mozCancelAnimationFrame;
+    
+    c1.addEventListener('click', function () {
+        if (video.paused) {
+            video.play();
+        }
+        else {
+            video.pause();
+        }
+    });
+    
+    var i = 0,
+        iText = document.querySelector('#frameCount');
+    
+    var timerCallback = function () {
+        if (video.paused || video.ended) {
+            return;
+        }
+        
+        ctx1.drawImage(video, 0, 0, width, height);
+        
+        /*++++++++++此处可做回调++++++++++++*/
+        iText.innerText = i;
+        i += 1
+        /*++++++++++回调结束++++++++++++++*/
+        
+        /*
+		* requestAnimationFrame 介绍（可更优的处理帧）慎用setTimeout
+		* http://javascript.ruanyifeng.com/htmlapi/requestanimationframe.html
+		* */
+        timer = requestAnimationFrame(timerCallback);
+    };
+    window.onload = function () {
+        video.addEventListener("play", function () {
+            timerCallback();
+        }, false);
+    }
+</script>
+</body>
+</html>
